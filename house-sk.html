@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOUSE-SK</title>
+    <link rel="icon" href="https://img.icons8.com/fluency/48/instagram-pride.png">
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #fafafa; margin: 0; padding: 0; }
+        .header { text-align: center; padding: 20px; background: #fff; border-bottom: 1px solid #dbdbdb; position: sticky; top: 0; z-index: 100; }
+        h1 { margin: 0; font-size: 24px; color: #262626; }
+        .gallery-container { max-width: 935px; margin: 20px auto; padding: 0 5px; }
+        .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; }
+        .grid-item { aspect-ratio: 1/1; overflow: hidden; background: #efefef; cursor: pointer; }
+        .grid-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
+        .grid-item:hover img { transform: scale(1.05); }
+
+        /* Lightbox Style */
+        .lightbox { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 1000; flex-direction: column; justify-content: center; align-items: center; }
+        .lightbox img { 
+            max-width: 90%; max-height: 90%; 
+            object-fit: contain; 
+            user-select: none; 
+            -webkit-user-drag: none;
+        }
+        
+        .nav-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.5); color: white; border: none; font-size: 35px; padding: 10px 20px; cursor: pointer; z-index: 1010; border-radius: 8px; user-select: none; }
+        .nav-btn:hover { background: rgba(0,0,0,0.8); }
+        .nav-left { left: 20px; }
+        .nav-right { right: 20px; }
+
+        .top-bar { position: absolute; top: 20px; right: 20px; z-index: 1010; display: flex; gap: 10px; }
+        .top-bar button { background: rgba(0,0,0,0.5); color: white; border: none; font-size: 24px; width: 45px; height: 45px; border-radius: 8px; cursor: pointer; }
+        .top-bar button:hover { background: rgba(0,0,0,0.8); }
+
+        .control-bar { position: absolute; top: 20px; left: 20px; display: flex; gap: 15px; background: rgba(0,0,0,0.6); padding: 10px 25px; border-radius: 30px; z-index: 1010; align-items: center; }
+        .control-bar button { background: none; border: none; color: white; font-size: 26px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        .control-bar button:hover { color: #0095f6; transform: scale(1.1); }
+        .play-btn { font-size: 32px !important; }
+
+        @media (max-width: 768px) {
+            .grid { grid-template-columns: 1fr; gap: 10px; padding: 10px; }
+            .control-bar { padding: 5px 15px; top: 15px; left: 15px; gap: 10px; }
+            .control-bar button { font-size: 20px; }
+            .play-btn { font-size: 24px !important; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>HOUSE-SK</h1>
+    </div>
+
+    <div class="gallery-container">
+        <div class="grid">
+            
+        <div class="grid-item" onclick="openLightbox(0)">
+            <img src="house-sk/IMG20240215171248.jpg" loading="lazy" alt="Image 0">
+        </div>
+        <div class="grid-item" onclick="openLightbox(1)">
+            <img src="house-sk/IMG20240215171314.jpg" loading="lazy" alt="Image 1">
+        </div>
+        <div class="grid-item" onclick="openLightbox(2)">
+            <img src="house-sk/IMG20240215171322.jpg" loading="lazy" alt="Image 2">
+        </div>
+        <div class="grid-item" onclick="openLightbox(3)">
+            <img src="house-sk/IMG20240215171337.jpg" loading="lazy" alt="Image 3">
+        </div>
+        <div class="grid-item" onclick="openLightbox(4)">
+            <img src="house-sk/IMG20240215171340.jpg" loading="lazy" alt="Image 4">
+        </div>
+        <div class="grid-item" onclick="openLightbox(5)">
+            <img src="house-sk/IMG20240215171356.jpg" loading="lazy" alt="Image 5">
+        </div>
+        <div class="grid-item" onclick="openLightbox(6)">
+            <img src="house-sk/IMG20240215171407.jpg" loading="lazy" alt="Image 6">
+        </div>
+        <div class="grid-item" onclick="openLightbox(7)">
+            <img src="house-sk/IMG20240215171417.jpg" loading="lazy" alt="Image 7">
+        </div>
+        <div class="grid-item" onclick="openLightbox(8)">
+            <img src="house-sk/IMG20240219164341.jpg" loading="lazy" alt="Image 8">
+        </div>
+        <div class="grid-item" onclick="openLightbox(9)">
+            <img src="house-sk/IMG20240219164742.jpg" loading="lazy" alt="Image 9">
+        </div>
+        <div class="grid-item" onclick="openLightbox(10)">
+            <img src="house-sk/IMG20240219164757.jpg" loading="lazy" alt="Image 10">
+        </div>
+        <div class="grid-item" onclick="openLightbox(11)">
+            <img src="house-sk/IMG20240219164802.jpg" loading="lazy" alt="Image 11">
+        </div>
+        <div class="grid-item" onclick="openLightbox(12)">
+            <img src="house-sk/IMG20240219172611.jpg" loading="lazy" alt="Image 12">
+        </div>
+        <div class="grid-item" onclick="openLightbox(13)">
+            <img src="house-sk/IMG20240220090650.jpg" loading="lazy" alt="Image 13">
+        </div>
+        <div class="grid-item" onclick="openLightbox(14)">
+            <img src="house-sk/IMG20240220090654.jpg" loading="lazy" alt="Image 14">
+        </div>
+        <div class="grid-item" onclick="openLightbox(15)">
+            <img src="house-sk/IMG20240220091446.jpg" loading="lazy" alt="Image 15">
+        </div>
+        <div class="grid-item" onclick="openLightbox(16)">
+            <img src="house-sk/IMG20240220091451.jpg" loading="lazy" alt="Image 16">
+        </div>
+        <div class="grid-item" onclick="openLightbox(17)">
+            <img src="house-sk/IMG20240220091505.jpg" loading="lazy" alt="Image 17">
+        </div>
+        <div class="grid-item" onclick="openLightbox(18)">
+            <img src="house-sk/IMG20240220111753.jpg" loading="lazy" alt="Image 18">
+        </div>
+        <div class="grid-item" onclick="openLightbox(19)">
+            <img src="house-sk/IMG20240220111755.jpg" loading="lazy" alt="Image 19">
+        </div>
+        <div class="grid-item" onclick="openLightbox(20)">
+            <img src="house-sk/IMG20240220113724.jpg" loading="lazy" alt="Image 20">
+        </div>
+        <div class="grid-item" onclick="openLightbox(21)">
+            <img src="house-sk/IMG20240220113727.jpg" loading="lazy" alt="Image 21">
+        </div>
+        <div class="grid-item" onclick="openLightbox(22)">
+            <img src="house-sk/IMG20240220113731.jpg" loading="lazy" alt="Image 22">
+        </div>
+        <div class="grid-item" onclick="openLightbox(23)">
+            <img src="house-sk/IMG20240220170353.jpg" loading="lazy" alt="Image 23">
+        </div>
+        <div class="grid-item" onclick="openLightbox(24)">
+            <img src="house-sk/IMG20240220170403.jpg" loading="lazy" alt="Image 24">
+        </div>
+        <div class="grid-item" onclick="openLightbox(25)">
+            <img src="house-sk/IMG20240220170430.jpg" loading="lazy" alt="Image 25">
+        </div>
+        <div class="grid-item" onclick="openLightbox(26)">
+            <img src="house-sk/IMG20240220170438.jpg" loading="lazy" alt="Image 26">
+        </div>
+        <div class="grid-item" onclick="openLightbox(27)">
+            <img src="house-sk/IMG20240220173538.jpg" loading="lazy" alt="Image 27">
+        </div>
+        <div class="grid-item" onclick="openLightbox(28)">
+            <img src="house-sk/IMG20240220173544.jpg" loading="lazy" alt="Image 28">
+        </div>
+        <div class="grid-item" onclick="openLightbox(29)">
+            <img src="house-sk/IMG20240220181154.jpg" loading="lazy" alt="Image 29">
+        </div>
+        <div class="grid-item" onclick="openLightbox(30)">
+            <img src="house-sk/IMG20240220181306.jpg" loading="lazy" alt="Image 30">
+        </div>
+        <div class="grid-item" onclick="openLightbox(31)">
+            <img src="house-sk/IMG20240222093546.jpg" loading="lazy" alt="Image 31">
+        </div>
+        <div class="grid-item" onclick="openLightbox(32)">
+            <img src="house-sk/IMG20240222093551.jpg" loading="lazy" alt="Image 32">
+        </div>
+        <div class="grid-item" onclick="openLightbox(33)">
+            <img src="house-sk/IMG20240222093601.jpg" loading="lazy" alt="Image 33">
+        </div>
+        <div class="grid-item" onclick="openLightbox(34)">
+            <img src="house-sk/IMG20240222093602.jpg" loading="lazy" alt="Image 34">
+        </div>
+        <div class="grid-item" onclick="openLightbox(35)">
+            <img src="house-sk/IMG20240222095118.jpg" loading="lazy" alt="Image 35">
+        </div>
+        <div class="grid-item" onclick="openLightbox(36)">
+            <img src="house-sk/IMG20240222095128.jpg" loading="lazy" alt="Image 36">
+        </div>
+        <div class="grid-item" onclick="openLightbox(37)">
+            <img src="house-sk/IMG20240222095708.jpg" loading="lazy" alt="Image 37">
+        </div>
+        <div class="grid-item" onclick="openLightbox(38)">
+            <img src="house-sk/IMG20240222095712.jpg" loading="lazy" alt="Image 38">
+        </div>
+        <div class="grid-item" onclick="openLightbox(39)">
+            <img src="house-sk/IMG20240222112309.jpg" loading="lazy" alt="Image 39">
+        </div>
+        <div class="grid-item" onclick="openLightbox(40)">
+            <img src="house-sk/IMG20240222112314.jpg" loading="lazy" alt="Image 40">
+        </div>
+        <div class="grid-item" onclick="openLightbox(41)">
+            <img src="house-sk/IMG20240222171233.jpg" loading="lazy" alt="Image 41">
+        </div>
+        <div class="grid-item" onclick="openLightbox(42)">
+            <img src="house-sk/IMG20240222171242.jpg" loading="lazy" alt="Image 42">
+        </div>
+        <div class="grid-item" onclick="openLightbox(43)">
+            <img src="house-sk/IMG20240222171856.jpg" loading="lazy" alt="Image 43">
+        </div>
+        <div class="grid-item" onclick="openLightbox(44)">
+            <img src="house-sk/IMG20240222171908.jpg" loading="lazy" alt="Image 44">
+        </div>
+        <div class="grid-item" onclick="openLightbox(45)">
+            <img src="house-sk/IMG20240222171914.jpg" loading="lazy" alt="Image 45">
+        </div>
+        <div class="grid-item" onclick="openLightbox(46)">
+            <img src="house-sk/IMG20240222171926.jpg" loading="lazy" alt="Image 46">
+        </div>
+        <div class="grid-item" onclick="openLightbox(47)">
+            <img src="house-sk/IMG20240222172001.jpg" loading="lazy" alt="Image 47">
+        </div>
+        <div class="grid-item" onclick="openLightbox(48)">
+            <img src="house-sk/IMG20240222172009.jpg" loading="lazy" alt="Image 48">
+        </div>
+        <div class="grid-item" onclick="openLightbox(49)">
+            <img src="house-sk/IMG20240222172015.jpg" loading="lazy" alt="Image 49">
+        </div>
+        <div class="grid-item" onclick="openLightbox(50)">
+            <img src="house-sk/IMG20240222172053.jpg" loading="lazy" alt="Image 50">
+        </div>
+        <div class="grid-item" onclick="openLightbox(51)">
+            <img src="house-sk/IMG20240222175328.jpg" loading="lazy" alt="Image 51">
+        </div>
+        <div class="grid-item" onclick="openLightbox(52)">
+            <img src="house-sk/IMG20240222180559.jpg" loading="lazy" alt="Image 52">
+        </div>
+        <div class="grid-item" onclick="openLightbox(53)">
+            <img src="house-sk/IMG20240222180604.jpg" loading="lazy" alt="Image 53">
+        </div>
+        <div class="grid-item" onclick="openLightbox(54)">
+            <img src="house-sk/IMG20240222180614.jpg" loading="lazy" alt="Image 54">
+        </div>
+        <div class="grid-item" onclick="openLightbox(55)">
+            <img src="house-sk/IMG20240222180618.jpg" loading="lazy" alt="Image 55">
+        </div>
+        <div class="grid-item" onclick="openLightbox(56)">
+            <img src="house-sk/IMG20240222181432.jpg" loading="lazy" alt="Image 56">
+        </div>
+        <div class="grid-item" onclick="openLightbox(57)">
+            <img src="house-sk/IMG20240223092546.jpg" loading="lazy" alt="Image 57">
+        </div>
+        <div class="grid-item" onclick="openLightbox(58)">
+            <img src="house-sk/IMG20240223092549.jpg" loading="lazy" alt="Image 58">
+        </div>
+        <div class="grid-item" onclick="openLightbox(59)">
+            <img src="house-sk/IMG20240223102008.jpg" loading="lazy" alt="Image 59">
+        </div>
+        <div class="grid-item" onclick="openLightbox(60)">
+            <img src="house-sk/IMG20240223102012.jpg" loading="lazy" alt="Image 60">
+        </div>
+        <div class="grid-item" onclick="openLightbox(61)">
+            <img src="house-sk/IMG20240223102017.jpg" loading="lazy" alt="Image 61">
+        </div>
+        <div class="grid-item" onclick="openLightbox(62)">
+            <img src="house-sk/IMG20240223152928.jpg" loading="lazy" alt="Image 62">
+        </div>
+        <div class="grid-item" onclick="openLightbox(63)">
+            <img src="house-sk/IMG20240223152932.jpg" loading="lazy" alt="Image 63">
+        </div>
+        <div class="grid-item" onclick="openLightbox(64)">
+            <img src="house-sk/IMG20240223152936.jpg" loading="lazy" alt="Image 64">
+        </div>
+        <div class="grid-item" onclick="openLightbox(65)">
+            <img src="house-sk/IMG20240223152940.jpg" loading="lazy" alt="Image 65">
+        </div>
+        <div class="grid-item" onclick="openLightbox(66)">
+            <img src="house-sk/IMG20240223153339.jpg" loading="lazy" alt="Image 66">
+        </div>
+        <div class="grid-item" onclick="openLightbox(67)">
+            <img src="house-sk/IMG20240223153347.jpg" loading="lazy" alt="Image 67">
+        </div>
+        <div class="grid-item" onclick="openLightbox(68)">
+            <img src="house-sk/IMG20240225164623.jpg" loading="lazy" alt="Image 68">
+        </div>
+        <div class="grid-item" onclick="openLightbox(69)">
+            <img src="house-sk/IMG20240225164628.jpg" loading="lazy" alt="Image 69">
+        </div>
+        <div class="grid-item" onclick="openLightbox(70)">
+            <img src="house-sk/IMG20240225172742.jpg" loading="lazy" alt="Image 70">
+        </div>
+        <div class="grid-item" onclick="openLightbox(71)">
+            <img src="house-sk/IMG20240228110223.jpg" loading="lazy" alt="Image 71">
+        </div>
+        <div class="grid-item" onclick="openLightbox(72)">
+            <img src="house-sk/IMG20240228110231.jpg" loading="lazy" alt="Image 72">
+        </div>
+        <div class="grid-item" onclick="openLightbox(73)">
+            <img src="house-sk/IMG20240228110234.jpg" loading="lazy" alt="Image 73">
+        </div>
+        <div class="grid-item" onclick="openLightbox(74)">
+            <img src="house-sk/IMG20240228110335.jpg" loading="lazy" alt="Image 74">
+        </div>
+        <div class="grid-item" onclick="openLightbox(75)">
+            <img src="house-sk/IMG20240228110340.jpg" loading="lazy" alt="Image 75">
+        </div>
+        <div class="grid-item" onclick="openLightbox(76)">
+            <img src="house-sk/IMG20240228112347.jpg" loading="lazy" alt="Image 76">
+        </div>
+        <div class="grid-item" onclick="openLightbox(77)">
+            <img src="house-sk/IMG20240228112401.jpg" loading="lazy" alt="Image 77">
+        </div>
+        <div class="grid-item" onclick="openLightbox(78)">
+            <img src="house-sk/IMG20240228112954.jpg" loading="lazy" alt="Image 78">
+        </div>
+        <div class="grid-item" onclick="openLightbox(79)">
+            <img src="house-sk/IMG20240228112959.jpg" loading="lazy" alt="Image 79">
+        </div>
+        <div class="grid-item" onclick="openLightbox(80)">
+            <img src="house-sk/IMG20240228113001.jpg" loading="lazy" alt="Image 80">
+        </div>
+        <div class="grid-item" onclick="openLightbox(81)">
+            <img src="house-sk/IMG20240229171323.jpg" loading="lazy" alt="Image 81">
+        </div>
+        <div class="grid-item" onclick="openLightbox(82)">
+            <img src="house-sk/IMG20240229171329.jpg" loading="lazy" alt="Image 82">
+        </div>
+        <div class="grid-item" onclick="openLightbox(83)">
+            <img src="house-sk/IMG20240229172442.jpg" loading="lazy" alt="Image 83">
+        </div>
+        <div class="grid-item" onclick="openLightbox(84)">
+            <img src="house-sk/IMG20240229172452.jpg" loading="lazy" alt="Image 84">
+        </div>
+        <div class="grid-item" onclick="openLightbox(85)">
+            <img src="house-sk/IMG20240229174517.jpg" loading="lazy" alt="Image 85">
+        </div>
+        <div class="grid-item" onclick="openLightbox(86)">
+            <img src="house-sk/IMG20240229174545.jpg" loading="lazy" alt="Image 86">
+        </div>
+        <div class="grid-item" onclick="openLightbox(87)">
+            <img src="house-sk/IMG20240306155629.jpg" loading="lazy" alt="Image 87">
+        </div>
+        <div class="grid-item" onclick="openLightbox(88)">
+            <img src="house-sk/IMG20240306155644.jpg" loading="lazy" alt="Image 88">
+        </div>
+        <div class="grid-item" onclick="openLightbox(89)">
+            <img src="house-sk/IMG20240306155832.jpg" loading="lazy" alt="Image 89">
+        </div>
+        <div class="grid-item" onclick="openLightbox(90)">
+            <img src="house-sk/IMG20240306155836.jpg" loading="lazy" alt="Image 90">
+        </div>
+        <div class="grid-item" onclick="openLightbox(91)">
+            <img src="house-sk/IMG20240306155844.jpg" loading="lazy" alt="Image 91">
+        </div>
+        <div class="grid-item" onclick="openLightbox(92)">
+            <img src="house-sk/IMG20240306163847.jpg" loading="lazy" alt="Image 92">
+        </div>
+        <div class="grid-item" onclick="openLightbox(93)">
+            <img src="house-sk/IMG20240306163901.jpg" loading="lazy" alt="Image 93">
+        </div>
+        <div class="grid-item" onclick="openLightbox(94)">
+            <img src="house-sk/IMG20240306171713.jpg" loading="lazy" alt="Image 94">
+        </div>
+        <div class="grid-item" onclick="openLightbox(95)">
+            <img src="house-sk/IMG20240306171717.jpg" loading="lazy" alt="Image 95">
+        </div>
+        <div class="grid-item" onclick="openLightbox(96)">
+            <img src="house-sk/IMG20240306171739.jpg" loading="lazy" alt="Image 96">
+        </div>
+        <div class="grid-item" onclick="openLightbox(97)">
+            <img src="house-sk/IMG20240308164102.jpg" loading="lazy" alt="Image 97">
+        </div>
+        <div class="grid-item" onclick="openLightbox(98)">
+            <img src="house-sk/IMG20240308164105.jpg" loading="lazy" alt="Image 98">
+        </div>
+        <div class="grid-item" onclick="openLightbox(99)">
+            <img src="house-sk/IMG20240309165913.jpg" loading="lazy" alt="Image 99">
+        </div>
+        <div class="grid-item" onclick="openLightbox(100)">
+            <img src="house-sk/IMG20240309165919.jpg" loading="lazy" alt="Image 100">
+        </div>
+        <div class="grid-item" onclick="openLightbox(101)">
+            <img src="house-sk/IMG20240309165925.jpg" loading="lazy" alt="Image 101">
+        </div>
+        <div class="grid-item" onclick="openLightbox(102)">
+            <img src="house-sk/IMG20240314170747.jpg" loading="lazy" alt="Image 102">
+        </div>
+        <div class="grid-item" onclick="openLightbox(103)">
+            <img src="house-sk/IMG20240320174407.jpg" loading="lazy" alt="Image 103">
+        </div>
+        <div class="grid-item" onclick="openLightbox(104)">
+            <img src="house-sk/IMG20240320174415.jpg" loading="lazy" alt="Image 104">
+        </div>
+        <div class="grid-item" onclick="openLightbox(105)">
+            <img src="house-sk/IMG20240320174419.jpg" loading="lazy" alt="Image 105">
+        </div>
+        <div class="grid-item" onclick="openLightbox(106)">
+            <img src="house-sk/IMG20240320174425.jpg" loading="lazy" alt="Image 106">
+        </div>
+        <div class="grid-item" onclick="openLightbox(107)">
+            <img src="house-sk/IMG20240320194903.jpg" loading="lazy" alt="Image 107">
+        </div>
+        <div class="grid-item" onclick="openLightbox(108)">
+            <img src="house-sk/IMG20240320194918.jpg" loading="lazy" alt="Image 108">
+        </div>
+        <div class="grid-item" onclick="openLightbox(109)">
+            <img src="house-sk/IMG20240320194933.jpg" loading="lazy" alt="Image 109">
+        </div>
+        <div class="grid-item" onclick="openLightbox(110)">
+            <img src="house-sk/IMG20240320194933_01.jpg" loading="lazy" alt="Image 110">
+        </div>
+        <div class="grid-item" onclick="openLightbox(111)">
+            <img src="house-sk/IMG20240320194941.jpg" loading="lazy" alt="Image 111">
+        </div>
+        <div class="grid-item" onclick="openLightbox(112)">
+            <img src="house-sk/IMG20240320194949.jpg" loading="lazy" alt="Image 112">
+        </div>
+        <div class="grid-item" onclick="openLightbox(113)">
+            <img src="house-sk/IMG20240321133506.jpg" loading="lazy" alt="Image 113">
+        </div>
+        <div class="grid-item" onclick="openLightbox(114)">
+            <img src="house-sk/IMG20240321133515.jpg" loading="lazy" alt="Image 114">
+        </div>
+        <div class="grid-item" onclick="openLightbox(115)">
+            <img src="house-sk/IMG20240321133519.jpg" loading="lazy" alt="Image 115">
+        </div>
+        <div class="grid-item" onclick="openLightbox(116)">
+            <img src="house-sk/IMG20240321140816.jpg" loading="lazy" alt="Image 116">
+        </div>
+        <div class="grid-item" onclick="openLightbox(117)">
+            <img src="house-sk/IMG20240323105029.jpg" loading="lazy" alt="Image 117">
+        </div>
+        <div class="grid-item" onclick="openLightbox(118)">
+            <img src="house-sk/IMG20240323131310.jpg" loading="lazy" alt="Image 118">
+        </div>
+        <div class="grid-item" onclick="openLightbox(119)">
+            <img src="house-sk/IMG20240323131317.jpg" loading="lazy" alt="Image 119">
+        </div>
+        <div class="grid-item" onclick="openLightbox(120)">
+            <img src="house-sk/IMG20240323131327.jpg" loading="lazy" alt="Image 120">
+        </div>
+        <div class="grid-item" onclick="openLightbox(121)">
+            <img src="house-sk/IMG20240323144003.jpg" loading="lazy" alt="Image 121">
+        </div>
+        <div class="grid-item" onclick="openLightbox(122)">
+            <img src="house-sk/IMG20240323144008.jpg" loading="lazy" alt="Image 122">
+        </div>
+        <div class="grid-item" onclick="openLightbox(123)">
+            <img src="house-sk/IMG20240323144016.jpg" loading="lazy" alt="Image 123">
+        </div>
+        <div class="grid-item" onclick="openLightbox(124)">
+            <img src="house-sk/IMG20240323144019.jpg" loading="lazy" alt="Image 124">
+        </div>
+        <div class="grid-item" onclick="openLightbox(125)">
+            <img src="house-sk/IMG20240323144027.jpg" loading="lazy" alt="Image 125">
+        </div>
+        <div class="grid-item" onclick="openLightbox(126)">
+            <img src="house-sk/IMG20240323144033.jpg" loading="lazy" alt="Image 126">
+        </div>
+        <div class="grid-item" onclick="openLightbox(127)">
+            <img src="house-sk/IMG20240323172307.jpg" loading="lazy" alt="Image 127">
+        </div>
+        <div class="grid-item" onclick="openLightbox(128)">
+            <img src="house-sk/IMG20240323172409.jpg" loading="lazy" alt="Image 128">
+        </div>
+        <div class="grid-item" onclick="openLightbox(129)">
+            <img src="house-sk/IMG20240323174705.jpg" loading="lazy" alt="Image 129">
+        </div>
+        <div class="grid-item" onclick="openLightbox(130)">
+            <img src="house-sk/IMG20240323174709.jpg" loading="lazy" alt="Image 130">
+        </div>
+        <div class="grid-item" onclick="openLightbox(131)">
+            <img src="house-sk/IMG20240323180801.jpg" loading="lazy" alt="Image 131">
+        </div>
+        <div class="grid-item" onclick="openLightbox(132)">
+            <img src="house-sk/IMG20240323180818.jpg" loading="lazy" alt="Image 132">
+        </div>
+        <div class="grid-item" onclick="openLightbox(133)">
+            <img src="house-sk/IMG20240324141718.jpg" loading="lazy" alt="Image 133">
+        </div>
+        <div class="grid-item" onclick="openLightbox(134)">
+            <img src="house-sk/IMG20240327130716.jpg" loading="lazy" alt="Image 134">
+        </div>
+        <div class="grid-item" onclick="openLightbox(135)">
+            <img src="house-sk/IMG20240327154059.jpg" loading="lazy" alt="Image 135">
+        </div>
+        <div class="grid-item" onclick="openLightbox(136)">
+            <img src="house-sk/IMG20240327155528.jpg" loading="lazy" alt="Image 136">
+        </div>
+        <div class="grid-item" onclick="openLightbox(137)">
+            <img src="house-sk/IMG20240331163303.jpg" loading="lazy" alt="Image 137">
+        </div>
+        <div class="grid-item" onclick="openLightbox(138)">
+            <img src="house-sk/IMG20240331181957.jpg" loading="lazy" alt="Image 138">
+        </div>
+        <div class="grid-item" onclick="openLightbox(139)">
+            <img src="house-sk/IMG20240331182010.jpg" loading="lazy" alt="Image 139">
+        </div>
+        <div class="grid-item" onclick="openLightbox(140)">
+            <img src="house-sk/IMG20240401180712.jpg" loading="lazy" alt="Image 140">
+        </div>
+        <div class="grid-item" onclick="openLightbox(141)">
+            <img src="house-sk/IMG20240401180718.jpg" loading="lazy" alt="Image 141">
+        </div>
+        <div class="grid-item" onclick="openLightbox(142)">
+            <img src="house-sk/IMG20240406163150.jpg" loading="lazy" alt="Image 142">
+        </div>
+        </div>
+    </div>
+
+    <!-- Lightbox / Modal -->
+    <div class="lightbox" id="lightbox">
+        <div class="top-bar">
+            <button onclick="toggleFullscreen()" title="Fullscreen (f)">⛶</button>
+            <button onclick="closeLightbox()" title="Close (Esc)">✖</button>
+        </div>
+        
+        <button class="nav-btn nav-left" onclick="prevImg()">❮</button>
+        <button class="nav-btn nav-right" onclick="nextImg()">❯</button>
+        
+        <img id="lightbox-img" src="" alt="Gallery Image">
+        
+        <div class="control-bar">
+            <button onclick="zoomOut()" title="Zoom Out (-)">➖</button>
+            <button id="play-btn" class="play-btn" onclick="togglePlay()" title="Auto Slide (Space)">▶</button>
+            <button onclick="zoomIn()" title="Zoom In (+)">➕</button>
+        </div>
+    </div>
+
+    <script>
+        const images = ["house-sk/IMG20240215171248.jpg", "house-sk/IMG20240215171314.jpg", "house-sk/IMG20240215171322.jpg", "house-sk/IMG20240215171337.jpg", "house-sk/IMG20240215171340.jpg", "house-sk/IMG20240215171356.jpg", "house-sk/IMG20240215171407.jpg", "house-sk/IMG20240215171417.jpg", "house-sk/IMG20240219164341.jpg", "house-sk/IMG20240219164742.jpg", "house-sk/IMG20240219164757.jpg", "house-sk/IMG20240219164802.jpg", "house-sk/IMG20240219172611.jpg", "house-sk/IMG20240220090650.jpg", "house-sk/IMG20240220090654.jpg", "house-sk/IMG20240220091446.jpg", "house-sk/IMG20240220091451.jpg", "house-sk/IMG20240220091505.jpg", "house-sk/IMG20240220111753.jpg", "house-sk/IMG20240220111755.jpg", "house-sk/IMG20240220113724.jpg", "house-sk/IMG20240220113727.jpg", "house-sk/IMG20240220113731.jpg", "house-sk/IMG20240220170353.jpg", "house-sk/IMG20240220170403.jpg", "house-sk/IMG20240220170430.jpg", "house-sk/IMG20240220170438.jpg", "house-sk/IMG20240220173538.jpg", "house-sk/IMG20240220173544.jpg", "house-sk/IMG20240220181154.jpg", "house-sk/IMG20240220181306.jpg", "house-sk/IMG20240222093546.jpg", "house-sk/IMG20240222093551.jpg", "house-sk/IMG20240222093601.jpg", "house-sk/IMG20240222093602.jpg", "house-sk/IMG20240222095118.jpg", "house-sk/IMG20240222095128.jpg", "house-sk/IMG20240222095708.jpg", "house-sk/IMG20240222095712.jpg", "house-sk/IMG20240222112309.jpg", "house-sk/IMG20240222112314.jpg", "house-sk/IMG20240222171233.jpg", "house-sk/IMG20240222171242.jpg", "house-sk/IMG20240222171856.jpg", "house-sk/IMG20240222171908.jpg", "house-sk/IMG20240222171914.jpg", "house-sk/IMG20240222171926.jpg", "house-sk/IMG20240222172001.jpg", "house-sk/IMG20240222172009.jpg", "house-sk/IMG20240222172015.jpg", "house-sk/IMG20240222172053.jpg", "house-sk/IMG20240222175328.jpg", "house-sk/IMG20240222180559.jpg", "house-sk/IMG20240222180604.jpg", "house-sk/IMG20240222180614.jpg", "house-sk/IMG20240222180618.jpg", "house-sk/IMG20240222181432.jpg", "house-sk/IMG20240223092546.jpg", "house-sk/IMG20240223092549.jpg", "house-sk/IMG20240223102008.jpg", "house-sk/IMG20240223102012.jpg", "house-sk/IMG20240223102017.jpg", "house-sk/IMG20240223152928.jpg", "house-sk/IMG20240223152932.jpg", "house-sk/IMG20240223152936.jpg", "house-sk/IMG20240223152940.jpg", "house-sk/IMG20240223153339.jpg", "house-sk/IMG20240223153347.jpg", "house-sk/IMG20240225164623.jpg", "house-sk/IMG20240225164628.jpg", "house-sk/IMG20240225172742.jpg", "house-sk/IMG20240228110223.jpg", "house-sk/IMG20240228110231.jpg", "house-sk/IMG20240228110234.jpg", "house-sk/IMG20240228110335.jpg", "house-sk/IMG20240228110340.jpg", "house-sk/IMG20240228112347.jpg", "house-sk/IMG20240228112401.jpg", "house-sk/IMG20240228112954.jpg", "house-sk/IMG20240228112959.jpg", "house-sk/IMG20240228113001.jpg", "house-sk/IMG20240229171323.jpg", "house-sk/IMG20240229171329.jpg", "house-sk/IMG20240229172442.jpg", "house-sk/IMG20240229172452.jpg", "house-sk/IMG20240229174517.jpg", "house-sk/IMG20240229174545.jpg", "house-sk/IMG20240306155629.jpg", "house-sk/IMG20240306155644.jpg", "house-sk/IMG20240306155832.jpg", "house-sk/IMG20240306155836.jpg", "house-sk/IMG20240306155844.jpg", "house-sk/IMG20240306163847.jpg", "house-sk/IMG20240306163901.jpg", "house-sk/IMG20240306171713.jpg", "house-sk/IMG20240306171717.jpg", "house-sk/IMG20240306171739.jpg", "house-sk/IMG20240308164102.jpg", "house-sk/IMG20240308164105.jpg", "house-sk/IMG20240309165913.jpg", "house-sk/IMG20240309165919.jpg", "house-sk/IMG20240309165925.jpg", "house-sk/IMG20240314170747.jpg", "house-sk/IMG20240320174407.jpg", "house-sk/IMG20240320174415.jpg", "house-sk/IMG20240320174419.jpg", "house-sk/IMG20240320174425.jpg", "house-sk/IMG20240320194903.jpg", "house-sk/IMG20240320194918.jpg", "house-sk/IMG20240320194933.jpg", "house-sk/IMG20240320194933_01.jpg", "house-sk/IMG20240320194941.jpg", "house-sk/IMG20240320194949.jpg", "house-sk/IMG20240321133506.jpg", "house-sk/IMG20240321133515.jpg", "house-sk/IMG20240321133519.jpg", "house-sk/IMG20240321140816.jpg", "house-sk/IMG20240323105029.jpg", "house-sk/IMG20240323131310.jpg", "house-sk/IMG20240323131317.jpg", "house-sk/IMG20240323131327.jpg", "house-sk/IMG20240323144003.jpg", "house-sk/IMG20240323144008.jpg", "house-sk/IMG20240323144016.jpg", "house-sk/IMG20240323144019.jpg", "house-sk/IMG20240323144027.jpg", "house-sk/IMG20240323144033.jpg", "house-sk/IMG20240323172307.jpg", "house-sk/IMG20240323172409.jpg", "house-sk/IMG20240323174705.jpg", "house-sk/IMG20240323174709.jpg", "house-sk/IMG20240323180801.jpg", "house-sk/IMG20240323180818.jpg", "house-sk/IMG20240324141718.jpg", "house-sk/IMG20240327130716.jpg", "house-sk/IMG20240327154059.jpg", "house-sk/IMG20240327155528.jpg", "house-sk/IMG20240331163303.jpg", "house-sk/IMG20240331181957.jpg", "house-sk/IMG20240331182010.jpg", "house-sk/IMG20240401180712.jpg", "house-sk/IMG20240401180718.jpg", "house-sk/IMG20240406163150.jpg"];
+        let currentIndex = 0;
+        let currentScale = 1;
+        let translateX = 0;
+        let translateY = 0;
+        let playing = false;
+        let playInterval;
+
+        let isDragging = false;
+        let startX = 0, startY = 0;
+        let swipeStartX = 0; // เพิ่มตัวแปรสำหรับเก็บค่าจุดเริ่มต้นการ Swipe
+
+        const lb = document.getElementById('lightbox');
+        const lbImg = document.getElementById('lightbox-img');
+        const playBtn = document.getElementById('play-btn');
+
+        function openLightbox(index) {
+            currentIndex = index;
+            resetTransform();
+            updateImg(false);
+            lb.style.display = 'flex';
+            document.body.style.overflow = 'hidden'; 
+        }
+
+        function closeLightbox() {
+            lb.style.display = 'none';
+            document.body.style.overflow = 'auto';
+            if(playing) togglePlay();
+            if(document.fullscreenElement) document.exitFullscreen();
+        }
+
+        function resetTransform() {
+            currentScale = 1;
+            translateX = 0;
+            translateY = 0;
+        }
+
+        function updateImg(smooth = true) {
+            lbImg.style.transition = smooth ? 'transform 0.2s ease-out' : 'none';
+            lbImg.src = images[currentIndex];
+            lbImg.style.transform = `translate(${translateX}px, ${translateY}px) scale(${currentScale})`;
+            
+            if (currentScale > 1) {
+                lbImg.style.cursor = isDragging ? 'grabbing' : 'grab';
+            } else {
+                lbImg.style.cursor = 'default';
+            }
+        }
+
+        function nextImg() {
+            currentIndex = (currentIndex + 1) % images.length;
+            resetTransform();
+            updateImg(true);
+        }
+
+        function prevImg() {
+            currentIndex = (currentIndex - 1 + images.length) % images.length;
+            resetTransform();
+            updateImg(true);
+        }
+
+        function zoomIn() {
+            currentScale += 0.25;
+            updateImg(true);
+        }
+
+        function zoomOut() {
+            currentScale = Math.max(0.25, currentScale - 0.25);
+            if (currentScale <= 1) resetTransform();
+            updateImg(true);
+        }
+
+        function togglePlay() {
+            playing = !playing;
+            playBtn.innerHTML = playing ? '⏸' : '▶';
+            if(playing) {
+                playInterval = setInterval(nextImg, 2500);
+            } else {
+                clearInterval(playInterval);
+            }
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                lb.requestFullscreen().catch(err => console.log(err));
+            } else {
+                document.exitFullscreen();
+            }
+        }
+
+        /* Drag, Pan & Swipe Events */
+        lb.addEventListener('mousedown', (e) => {
+            // ป้องกันการทำงานทับซ้อนเมื่อกดโดนปุ่มต่างๆ
+            if (e.target.tagName.toLowerCase() === 'button' || e.target.closest('button')) return;
+
+            if (currentScale > 1) {
+                isDragging = true;
+                startX = e.clientX - translateX;
+                startY = e.clientY - translateY;
+                updateImg(false);
+                e.preventDefault();
+            } else {
+                isDragging = true;
+                swipeStartX = e.clientX;
+                e.preventDefault();
+            }
+        });
+
+        window.addEventListener('mousemove', (e) => {
+            if (isDragging && currentScale > 1) {
+                translateX = e.clientX - startX;
+                translateY = e.clientY - startY;
+                updateImg(false);
+            }
+        });
+
+        window.addEventListener('mouseup', (e) => {
+            if (isDragging) {
+                isDragging = false;
+                if (currentScale > 1) {
+                    updateImg(false);
+                } else {
+                    let diffX = e.clientX - swipeStartX;
+                    if (diffX > 50) prevImg();       // ลากไปทางขวา -> รูปก่อนหน้า
+                    else if (diffX < -50) nextImg(); // ลากไปทางซ้าย -> รูปถัดไป
+                }
+            }
+        });
+
+        lb.addEventListener('touchstart', (e) => {
+            if (e.target.tagName.toLowerCase() === 'button' || e.target.closest('button')) return;
+
+            if (currentScale > 1 && e.touches.length === 1) {
+                isDragging = true;
+                startX = e.touches[0].clientX - translateX;
+                startY = e.touches[0].clientY - translateY;
+            } else if (currentScale === 1 && e.touches.length === 1) {
+                isDragging = true;
+                swipeStartX = e.touches[0].clientX;
+            }
+        });
+
+        window.addEventListener('touchmove', (e) => {
+            if (isDragging && currentScale > 1 && e.touches.length === 1) {
+                translateX = e.touches[0].clientX - startX;
+                translateY = e.touches[0].clientY - startY;
+                updateImg(false);
+            }
+        });
+
+        window.addEventListener('touchend', (e) => {
+            if (isDragging) {
+                isDragging = false;
+                if (currentScale > 1) {
+                    updateImg(false);
+                } else {
+                    let diffX = e.changedTouches[0].clientX - swipeStartX;
+                    if (diffX > 50) prevImg();       // ปัดไปทางขวา -> รูปก่อนหน้า
+                    else if (diffX < -50) nextImg(); // ปัดไปทางซ้าย -> รูปถัดไป
+                }
+            }
+        });
+
+        /* คีย์บอร์ด Shortcut */
+        window.addEventListener('keydown', function(e) {
+            if (lb.style.display === 'flex') {
+                if (e.key === 'ArrowRight') {
+                    nextImg();
+                } else if (e.key === 'ArrowLeft') {
+                    prevImg();
+                } else if (e.key === 'Escape') {
+                    closeLightbox();
+                } else if (e.key === '+' || e.key === '=') {
+                    zoomIn();
+                } else if (e.key === '-') {
+                    zoomOut();
+                } else if (e.key === ' ' || e.code === 'Space') {
+                    e.preventDefault(); 
+                    togglePlay();
+                } else if (e.key.toLowerCase() === 'f') {
+                    toggleFullscreen();
+                }
+            }
+        });
+
+        /* ลูกกลิ้งเมาส์ & Shift+Scroll */
+        lb.addEventListener('wheel', function(e) {
+            if (lb.style.display === 'flex') {
+                e.preventDefault(); 
+                
+                if (e.shiftKey) {
+                    if (e.deltaY < 0) {
+                        zoomIn(); 
+                    } else {
+                        zoomOut(); 
+                    }
+                } else {
+                    if (e.deltaY > 0) {
+                        nextImg(); 
+                    } else {
+                        prevImg(); 
+                    }
+                }
+            }
+        }, { passive: false });
+    </script>
+</body>
+</html>
